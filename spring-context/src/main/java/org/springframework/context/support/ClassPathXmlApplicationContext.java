@@ -138,8 +138,14 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 			String[] configLocations, boolean refresh, @Nullable ApplicationContext parent)
 			throws BeansException {
 
+		// 这里做了两件事：
+		// 1、准备一个默认的资源模式解析器，支持 Ant 风格的位置模式;
+		// 2、尝试将父环境与当前环境进行合并;
 		super(parent);
+		//解析 Ant 风格的位置模式 和 解析占位符
+		//并将最终的配置文件位置信息提前准备到上下文环境中
 		setConfigLocations(configLocations);
+		//加载或刷新IOC容器
 		if (refresh) {
 			refresh();
 		}
